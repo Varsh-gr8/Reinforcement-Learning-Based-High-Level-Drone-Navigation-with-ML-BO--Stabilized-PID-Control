@@ -109,7 +109,7 @@ class DroneNavigationAviary(BaseAviary):
         collision = any(p.getContactPoints(self.DRONE_IDS[0], obs_id, physicsClientId=self.cid) for obs_id in self.OBSTACLES)
         if collision:
             reward -= 10
-            print("⚠️ Collision detected!")
+            print("Collision detected!")
         tracking_error = np.linalg.norm(np.array(obs[:3]) - self.current_target)
         info = {
             "tracking_error": tracking_error,
@@ -120,7 +120,7 @@ class DroneNavigationAviary(BaseAviary):
         terminated = self._checkTermination(obs)
         truncated = False
         if info["waypoint_reached"]:
-            print("✅ Waypoint reached. Generating a new target...")
+            print(" Waypoint reached. Generating a new target...")
             self.update_target()
         return obs, reward, terminated, truncated, info
 
@@ -129,7 +129,7 @@ class DroneNavigationAviary(BaseAviary):
 
     def update_target(self):
         self.current_target = self.generate_random_target()
-        print(f"🎯 New dynamic target: {self.current_target}")
+        print(f" New dynamic target: {self.current_target}")
 
     def reset(self, seed=None, options=None):
         if seed is not None:
